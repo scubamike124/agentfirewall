@@ -1,0 +1,17 @@
+node_modules
+dist
+.data
+.data-e2e
+.env
+.env.local
+*.pyc
+__pycache__
+.venv
+sdks/python/*.egg-info
+.DS_Store
+*.log
+.next
+.tmp-*
+.tmp*/
+proofs/results/*.json
+apps/dashboard/dist

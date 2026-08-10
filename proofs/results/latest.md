@@ -1,0 +1,58 @@
+# AgentFirewall Security Validation Report
+
+**Run:** proof_2026-08-10T01-54-56-114Z  
+**Target:** https://api.agentfirewall.launchreadyal.com  
+**Window:** 2026-08-10T01:54:56.116Z → 2026-08-10T01:56:07.776Z
+
+## Disclaimer
+
+This is a first-party controlled adversarial suite against the production enforcement API. It is not an independent third-party penetration test. Rates reflect this corpus only — not a claim of 100% protection. Bypass variants that use encodings/synonyms the current detectors do not cover are expected to miss and are reported as gaps.
+
+## Headline metrics
+
+| Metric | Value |
+|--------|------:|
+| Attack held (block or expected hold) | **67/67** (100.0%) |
+| Attack misses | 0 |
+| False positives (benign blocked) | **0/1000** (0.00%) |
+| Latency p50 / p95 / p99 | 62.4 / 87.1 / 182.1 ms |
+| Latency mean (n=1069) | 65.94 ms |
+| Bypass variants caught | 22/22 |
+| Approval pause | YES |
+| No exec until approve | YES |
+| Bound action reject | YES |
+| Fail-safe unreachable | YES |
+| Audit integrity | 50/50 (100.0%) |
+
+## By capability
+
+- **prompt_injection**: 18/18 (100.0%)
+- **secret_exfiltration**: 20/20 (100.0%)
+- **unauthorized_egress**: 9/9 (100.0%)
+- **mcp_tool_drift**: 3/3 (100.0%)
+- **trajectory_attack**: 2/2 (100.0%)
+- **human_approval**: 1/1 (100.0%)
+- **blast_radius**: 14/14 (100.0%)
+
+## Bypass miss IDs
+
+_None in this corpus_
+
+## Fail-safe detail
+
+Client cannot reach firewall (fetch failed). Fail-closed for callers that require a decision before execute — no remote allow issued.
+
+## Audit gaps (sample)
+
+_No gaps in sampled records_
+
+## What this does **not** prove
+
+- Not an independent third-party penetration assessment.
+- Not coverage of every encoding/language/tooling variant in the wild.
+- Not a guarantee of 100% protection.
+- Detector strength is bounded by current pattern/policy design; synonym and encoding bypass misses are product gaps, not test failures to hide.
+
+## Evidence files
+
+- `proof_2026-08-10T01-54-56-114Z.json` — full case-level results

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Security Proof — AgentFirewall</title>
+  <meta name="description" content="Public AgentFirewall security validation results: attack hold rate, false positives, latency, and capability coverage on the production API." />
+  <link rel="canonical" href="https://agentfirewall.launchreadyal.com/security-proof" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@450;500&family=Sora:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="top-brand" href="/">AgentFirewall</a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="/#proof">Summary</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="section proof-page">
+    <p class="eyebrow">Security validation report</p>
+    <h1 class="proof-title">Production Security Proof</h1>
+    <p class="section-lede">
+      Controlled adversarial suite against the live enforcement API. Same path customers use.
+      Rates for this corpus only — not an independent third-party penetration test, and not a claim of universal protection.
+    </p>
+
+    <dl class="proof-meta">
+      <div><dt>Run</dt><dd><code>proof_2026-08-10T01-54-56-114Z</code></dd></div>
+      <div><dt>Target</dt><dd><code>https://api.agentfirewall.launchreadyal.com</code></dd></div>
+      <div><dt>Window</dt><dd>2026-08-10T01:54:56Z → 01:56:07Z</dd></div>
+    </dl>
+
+    <h2 class="proof-h">Headline metrics</h2>
+    <table class="proof-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Attack held</td><td><strong>67/67 (100.0%)</strong></td></tr>
+        <tr><td>Attack misses</td><td>0</td></tr>
+        <tr><td>False positives (benign blocked)</td><td><strong>0/1000 (0.00%)</strong></td></tr>
+        <tr><td>Latency p50 / p95 / p99</td><td>62.4 / 87.1 / 182.1 ms</td></tr>
+        <tr><td>Latency mean (n=1069)</td><td>65.94 ms</td></tr>
+        <tr><td>Bypass variants caught</td><td>22/22</td></tr>
+        <tr><td>Approval pause</td><td>YES</td></tr>
+        <tr><td>No exec until approve</td><td>YES</td></tr>
+        <tr><td>Bound action reject</td><td>YES</td></tr>
+        <tr><td>Fail-safe unreachable</td><td>YES</td></tr>
+        <tr><td>Audit integrity</td><td>50/50 (100.0%)</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="proof-h">By capability</h2>
+    <table class="proof-table">
+      <thead>
+        <tr><th>Capability</th><th>Held</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Prompt injection</td><td>18/18</td></tr>
+        <tr><td>Secret exfiltration</td><td>20/20</td></tr>
+        <tr><td>Unauthorized egress</td><td>9/9</td></tr>
+        <tr><td>MCP / tool drift</td><td>3/3</td></tr>
+        <tr><td>Trajectory attacks</td><td>2/2</td></tr>
+        <tr><td>Human approval</td><td>1/1 (+ binding checks)</td></tr>
+        <tr><td>Blast-radius controls</td><td>14/14</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="proof-h">Before → after (product fix)</h2>
+    <p class="section-lede proof-tight">
+      An earlier production run held <strong>54/62 (87.1%)</strong> with secret exfiltration at <strong>7/15 (46.7%)</strong>.
+      The firewall was hardened (encoding, fragmentation, GitHub/Slack/password policy). The original adversarial cases were not weakened.
+      Retest: <strong>67/67</strong> with false positives still <strong>0/1000</strong>.
+    </p>
+
+    <h2 class="proof-h">What this does not prove</h2>
+    <ul class="proof-limits">
+      <li>Not an independent third-party penetration assessment.</li>
+      <li>Not coverage of every encoding, language, or tool chain in the wild.</li>
+      <li>Not a guarantee of 100% protection outside this corpus.</li>
+    </ul>
+
+    <p class="proof-note">
+      <a href="/">← Back to AgentFirewall</a>
+      · API <a href="https://api.agentfirewall.launchreadyal.com/health">health</a>
+    </p>
+  </main>
+
+  <footer class="foot">
+    <p class="brand-foot">AgentFirewall</p>
+    <p>Public security proof · first-party controlled suite</p>
+  </footer>
+</body>
+</html>

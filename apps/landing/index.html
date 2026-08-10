@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentFirewall — Real-time AI Agent Security Firewall</title>
+  <meta name="description" content="Model-agnostic security firewall for AI agents. Evaluate tool calls, MCP, and API actions before execution — allow, block, or require human approval." />
+  <link rel="canonical" href="https://agentfirewall.launchreadyal.com/" />
+  <meta property="og:title" content="AgentFirewall" />
+  <meta property="og:description" content="Real-time security firewall for autonomous AI agents — before tools run." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://agentfirewall.launchreadyal.com/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@450;500&family=Sora:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="top-brand" href="#top">AgentFirewall</a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#proof">Security proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Hero">
+      <div class="hero-copy">
+        <p class="brand">AgentFirewall</p>
+        <h1>Stop unsafe agent actions before they run.</h1>
+        <p class="lede">
+          A model-agnostic security firewall for tool calls, MCP, and APIs — allow, block, or require human approval in real time.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#pricing" id="start-free">Start free</a>
+          <a class="btn ghost" href="https://api.agentfirewall.launchreadyal.com/v1/openapi.json" target="_blank" rel="noopener">Open API spec</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg class="pipeline" viewBox="0 0 720 520" role="img">
+          <defs>
+            <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0d7a5f" stop-opacity="0.15" />
+              <stop offset="50%" stop-color="#0d7a5f" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#0d7a5f" stop-opacity="0.15" />
+            </linearGradient>
+            <filter id="soft">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
+          </defs>
+          <ellipse class="glow" cx="360" cy="260" rx="280" ry="160" fill="#0d7a5f" opacity="0.12" filter="url(#soft)" />
+          <path class="rail" d="M70 260 H650" stroke="url(#flow)" stroke-width="3" fill="none" />
+          <g class="node agent">
+            <rect x="40" y="200" width="140" height="120" rx="18" />
+            <text x="110" y="255" text-anchor="middle">Agent</text>
+            <text x="110" y="282" text-anchor="middle" class="sub">tools · MCP</text>
+          </g>
+          <g class="node gate">
+            <rect x="290" y="175" width="140" height="170" rx="18" />
+            <text x="360" y="245" text-anchor="middle">Firewall</text>
+            <text x="360" y="272" text-anchor="middle" class="sub">policy</text>
+            <text x="360" y="298" text-anchor="middle" class="sub">ALLOW · BLOCK</text>
+            <text x="360" y="320" text-anchor="middle" class="sub">APPROVE</text>
+          </g>
+          <g class="node tool">
+            <rect x="540" y="200" width="140" height="120" rx="18" />
+            <text x="610" y="255" text-anchor="middle">Tool / API</text>
+            <text x="610" y="282" text-anchor="middle" class="sub">execution</text>
+          </g>
+          <circle class="pulse p1" cx="220" cy="260" r="6" />
+          <circle class="pulse p2" cx="500" cy="260" r="6" />
+        </svg>
+      </div>
+    </section>
+
+    <section class="section how" id="how">
+      <p class="eyebrow">How it works</p>
+      <h2>Sit between the agent and every risky call.</h2>
+      <p class="section-lede">
+        Your agent proposes an action. AgentFirewall evaluates it against policy, identity, and session history — then returns a decision before anything executes.
+      </p>
+      <ol class="steps">
+        <li>
+          <span class="step-num">01</span>
+          <div>
+            <strong>Propose</strong>
+            <p>Tool call, HTTP, MCP, or shell — with agent token and context.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <div>
+            <strong>Evaluate</strong>
+            <p>Secrets, injection, egress, trajectory, MCP trust, blast radius.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <div>
+            <strong>Decide</strong>
+            <p>Allow, block, or bound human approval with one-time resume.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section stops" id="stops">
+      <p class="eyebrow">What it stops</p>
+      <h2>Built for the failures autonomous agents actually cause.</h2>
+      <p class="section-lede">
+        Not a scanner. Enforcement at the moment of action — with audit you can hand to security.
+      </p>
+      <ul class="stop-list">
+        <li><span>Secret leakage</span> API keys and credentials in tool payloads</li>
+        <li><span>Prompt injection</span> Untrusted content steering high-impact tools</li>
+        <li><span>Egress abuse</span> Destinations outside per-agent allowlists</li>
+        <li><span>Trajectory attacks</span> Recon → exfil chains across a session</li>
+        <li><span>MCP drift</span> Pinned tool descriptors that suddenly change</li>
+        <li><span>Unbounded blast radius</span> Caps on volume, spend, and fan-out</li>
+      </ul>
+    </section>
+
+    <section class="section proof" id="proof">
+      <p class="eyebrow">Security proof</p>
+      <h2>Measured on the production API — not a vanity checklist.</h2>
+      <p class="section-lede">
+        Controlled adversarial suite: malicious and legitimate traffic through the same enforcement path customers use.
+        We publish rates, not just “tests passed.”
+      </p>
+      <div class="proof-metrics" role="list">
+        <div class="proof-metric" role="listitem">
+          <strong>100%</strong>
+          <span>Attack hold</span>
+          <em>67 / 67 prohibited attempts held</em>
+        </div>
+        <div class="proof-metric" role="listitem">
+          <strong>0.00%</strong>
+          <span>False positives</span>
+          <em>0 / 1,000 legitimate ops blocked</em>
+        </div>
+        <div class="proof-metric" role="listitem">
+          <strong>22 / 22</strong>
+          <span>Bypass variants</span>
+          <em>Encoding, fragment, and rename cases</em>
+        </div>
+        <div class="proof-metric" role="listitem">
+          <strong>62 ms</strong>
+          <span>Latency p50</span>
+          <em>p95 87 ms · production path</em>
+        </div>
+      </div>
+      <ul class="proof-caps">
+        <li><span>Prompt injection</span> 18/18</li>
+        <li><span>Secret exfiltration</span> 20/20</li>
+        <li><span>Unauthorized egress</span> 9/9</li>
+        <li><span>MCP / tool drift</span> 3/3</li>
+        <li><span>Trajectory attacks</span> 2/2</li>
+        <li><span>Human approval binding</span> pause · no pre-approve exec · swap rejected</li>
+        <li><span>Blast-radius caps</span> 14/14</li>
+        <li><span>Audit integrity</span> 50/50 sampled records complete</li>
+      </ul>
+      <p class="proof-note">
+        Run <code>proof_2026-08-10T01-54-56-114Z</code> against
+        <code>api.agentfirewall.launchreadyal.com</code>.
+        First-party suite — not a third-party pentest. Corpus-bound rates, not a claim of 100% protection in the wild.
+        <a href="/security-proof">Full public report →</a>
+      </p>
+    </section>
+
+    <section class="section pricing" id="pricing">
+      <p class="eyebrow">Pricing</p>
+      <h2>Start free. Scale when agents go to production.</h2>
+      <p class="section-lede">
+        Subscription checkout is live on Stripe. Developer stays free for local and early work.
+      </p>
+      <div class="price-table" role="list">
+        <article class="price-row" role="listitem">
+          <div class="price-name">
+            <strong>Developer</strong>
+            <span>Local / early agents</span>
+          </div>
+          <div class="price-amount"><em>$0</em><span>/mo</span></div>
+          <p>5k evals/day · 5 agents · core detectors</p>
+          <a class="btn ghost tight" href="#pricing" id="start-free-price">Get free key</a>
+        </article>
+        <article class="price-row featured" role="listitem">
+          <div class="price-name">
+            <strong>Pro</strong>
+            <span>Production agents</span>
+          </div>
+          <div class="price-amount"><em>$129</em><span>/mo</span></div>
+          <p>50k evals/day · SIEM + compliance export · bound approvals</p>
+          <a class="btn primary tight" href="#pricing" data-plan="Pro" data-checkout>Checkout Pro</a>
+        </article>
+        <article class="price-row" role="listitem">
+          <div class="price-name">
+            <strong>Business</strong>
+            <span>Team scale</span>
+          </div>
+          <div class="price-amount"><em>$599</em><span>/mo</span></div>
+          <p>250k evals/day · SSO/RBAC readiness · longer audit</p>
+          <a class="btn ghost tight" href="#pricing" data-plan="Business" data-checkout>Checkout Business</a>
+        </article>
+        <article class="price-row" role="listitem">
+          <div class="price-name">
+            <strong>Enterprise</strong>
+            <span>Custom contract</span>
+          </div>
+          <div class="price-amount"><em>$2,499</em><span>/mo list</span></div>
+          <p>Unlimited path · private networking · dedicated terms</p>
+          <a class="btn ghost tight" href="#pricing" data-plan="Enterprise" data-checkout>Checkout Enterprise</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Tell us what you’re protecting.</h2>
+      <p class="section-lede">
+        Message the team. We reply from AgentFirewall — your inbox stays private.
+      </p>
+      <form id="contact-form" class="contact-form" novalidate>
+        <label>
+          Name
+          <input name="name" autocomplete="name" required maxlength="120" />
+        </label>
+        <label>
+          Work email
+          <input name="email" type="email" autocomplete="email" required maxlength="200" />
+        </label>
+        <label>
+          Company
+          <input name="company" autocomplete="organization" maxlength="200" />
+        </label>
+        <label>
+          Plan interest
+          <select name="plan" id="plan-interest">
+            <option value="">Not sure yet</option>
+            <option>Developer</option>
+            <option>Pro</option>
+            <option>Business</option>
+            <option>Enterprise</option>
+          </select>
+        </label>
+        <label class="full">
+          Message
+          <textarea name="message" rows="5" required minlength="10" maxlength="5000" placeholder="What agents, tools, or compliance needs are you solving?"></textarea>
+        </label>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-foot">
+          <button type="submit" class="btn primary">Send message</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="brand-foot">AgentFirewall</p>
+    <p>API · <a href="https://api.agentfirewall.launchreadyal.com/health">health</a> · <a href="https://api.agentfirewall.launchreadyal.com/v1/openapi.json">openapi</a> · <a href="/security-proof">security proof</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

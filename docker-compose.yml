@@ -1,0 +1,15 @@
+services:
+  agentfirewall:
+    build: .
+    ports:
+      - "8787:8787"
+    environment:
+      AGENTFIREWALL_API_KEY: ${AGENTFIREWALL_API_KEY:-af_dev_key_change_me}
+      AGENTFIREWALL_DATA: /app/.data
+      PORT: "8787"
+    volumes:
+      - af_data:/app/.data
+    restart: unless-stopped
+
+volumes:
+  af_data:

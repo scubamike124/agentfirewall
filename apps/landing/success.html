@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome — AgentFirewall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@450;500&family=Sora:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"></div>
+  <header class="top">
+    <a class="top-brand" href="/">AgentFirewall</a>
+  </header>
+  <main class="section" style="max-width:640px">
+    <p class="eyebrow">Checkout complete</p>
+    <h2>Your API key is ready.</h2>
+    <p class="section-lede" id="status">Confirming payment and issuing your key…</p>
+    <pre id="key-box" class="key-box" hidden></pre>
+    <p class="section-lede" id="hint" hidden>
+      Store this key now. We also emailed it. Use it as <span class="mono">Authorization: Bearer …</span> against the API.
+    </p>
+    <div class="cta-row" style="margin-top:1.5rem">
+      <a class="btn primary" href="https://api.agentfirewall.launchreadyal.com/v1/openapi.json" target="_blank" rel="noopener">Open API spec</a>
+      <a class="btn ghost" href="/">Back to site</a>
+    </div>
+  </main>
+  <script>
+    const API = "https://api.agentfirewall.launchreadyal.com";
+    const params = new URLSearchParams(location.search);
+    const sessionId = params.get("session_id");
+    const status = document.getElementById("status");
+    const box = document.getElementById("key-box");
+    const hint = document.getElementById("hint");
+
+    async function reveal() {
+      if (!sessionId) {
+        status.textContent = "Missing session_id — open this page from Stripe Checkout success.";
+        return;
+      }
+      for (let i = 0; i < 8; i++) {
+        const res = await fetch(API + "/v1/billing/reveal?session_id=" + encodeURIComponent(sessionId));
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.api_key) {
+          status.textContent = "Plan: " + (json.plan || "paid") + " · emailed to " + (json.email || "you");
+          box.hidden = false;
+          hint.hidden = false;
+          box.textContent = json.api_key;
+          return;
+        }
+        if (res.status === 402) {
+          status.textContent = "Payment not complete yet…";
+        } else if (res.status === 409) {
+          status.textContent = "Key still provisioning — retrying…";
+        } else {
+          status.textContent = json.error || "Could not reveal key. Check your email.";
+          if (res.status !== 409) return;
+        }
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+      status.textContent = "Key emailed if payment succeeded — check your inbox.";
+    }
+    reveal();
+  </script>
+  <style>
+    .key-box {
+      margin: 1rem 0 0;
+      padding: 1rem 1.1rem;
+      background: #fbfcfb;
+      border: 1px solid #c5d4cb;
+      border-radius: 0.45rem;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.9em; }
+  </style>
+</body>
+</html>
